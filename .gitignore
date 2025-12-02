@@ -1,0 +1,19 @@
+# IDE/OS Files
+.vscode/
+.DS_Store
+
+# Terraform State Files (Crucial to Exclude)
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Kubernetes/Deployment Secrets
+# Credentials should be applied manually or via CI/CD Secrets
+kubeconfig.yaml
+docr-secret.yaml
+
+# Local/Temporary Files
+# Any temporary binary files
+doctl.exe
+firewall-rules.json
