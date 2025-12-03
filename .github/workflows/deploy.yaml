@@ -21,8 +21,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # ----------------------------------------
       # 1. Build and Push to DOCR
-      - name: Set up Docker Buildx
+      # ----------------------------------------
+      - name: 🔧 Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Log in to DigitalOcean Container Registry
@@ -35,12 +37,14 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          # IMPORTANT CHANGE: context set to 'app-source' so Docker finds app.py
+          context: app-source
           push: true
           tags: registry.digitalocean.com/${{ env.REGISTRY_NAME }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
-          file: app-source/Dockerfile
 
+      # ----------------------------------------
       # 2. Deploy to Kubernetes
+      # ----------------------------------------
       - name: Set up Kubeconfig and Install Kubectl
         uses: azure/setup-kubectl@v4
         with:
